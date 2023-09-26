@@ -4,6 +4,12 @@ Find missing messages from translation files and generates them them using ChatG
 
 ## Installation
 
+Add this line to your `.npmrc` file:
+
+`@ayhungry:registry=https://npm.pkg.github.com`
+
+then
+
 `npm install -D @ayhungry/translations`
 
 You will need an openAI API Key
