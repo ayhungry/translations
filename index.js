@@ -65,7 +65,8 @@ function overrideLocale(locale) {
  */
 
 async function getLanguages() {
-  const results = fs.readdirSync(flags.get('messagesPath'))
+  const messagesPath = flags.get('messagesPath')
+  const results = fs.readdirSync(messagesPath)
   const jsonFiles = results.filter((fileName) => fileName.endsWith('.json'))
   return jsonFiles.map((fileName) => ({
     name:  fileName.replace('.json', ''),
