@@ -7,7 +7,7 @@
   "author": "AyHungry",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ayhungry/translations"
+    "url": "git+https://github.com/ayhungry/translations.git"
   },
   "license": "MIT",
   "dependencies": {
