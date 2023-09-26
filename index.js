@@ -10,10 +10,6 @@ import chalk from 'chalk'
 import yesno from 'yesno'
 import OpenAI from 'openai';
 import lodash from 'lodash'
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 flags.defineString('openAiKey', '', 'Your OpenAI API key');
 flags.defineString('referenceLanguage', 'es', 'Language to be used as reference (should contain all the messages you need)');
@@ -69,8 +65,7 @@ function overrideLocale(locale) {
  */
 
 async function getLanguages() {
-  const messagesPath = path.join(__dirname, flags.get('messagesPath') || '../src/messages');
-  const results = fs.readdirSync(messagesPath)
+  const results = fs.readdirSync(flags.get('messagesPath'))
   const jsonFiles = results.filter((fileName) => fileName.endsWith('.json'))
   return jsonFiles.map((fileName) => ({
     name:  fileName.replace('.json', ''),

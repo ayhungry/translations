@@ -1,6 +1,6 @@
 {
   "name": "@ayhungry/translations",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find missing messages from translation files and generates them them using ChatGPT",
   "main": "index.js",
   "type": "module",
