@@ -60,16 +60,23 @@ function overrideLocale(locale) {
   return locale
 }
 
+function jsonFiles() {
+  const messagesPath = flags.get('messagesPath')
+  const results = fs.readdirSync(messagesPath)
+  const jsonFiles = results.filter((fileName) => fileName.endsWith('.json'))
+  if (jsonFiles.length !== 0) return jsonFiles
+  // assuming a structure of `en/en.json` or `es/es.json`
+  return results.map((language) => `${language}/${language}.json`)
+}
+
 /*
  * @returns {Language[]}
  */
 
-async function getLanguages() {
+function getLanguages() {
   const messagesPath = flags.get('messagesPath')
-  const results = fs.readdirSync(messagesPath)
-  const jsonFiles = results.filter((fileName) => fileName.endsWith('.json'))
-  return jsonFiles.map((fileName) => ({
-    name:  fileName.replace('.json', ''),
+  return jsonFiles().map((fileName) => ({
+    name:  fileName.split(/\//).pop().replace('.json', ''),
     path: `${messagesPath}/${fileName}`,
     messages: JSON.parse(fs.readFileSync(`${messagesPath}/${fileName}`, 'utf8'))
   }))
@@ -142,7 +149,7 @@ async function updateLanguageFiles(translations) {
   * @returns {Promise<void>}
   */
 async function checkTranslations () {
-  languages = await getLanguages()
+  languages = getLanguages()
 
   const referenceLanguage = languages.find((language) => language.name === referenceLanguageKey)
   if (!referenceLanguage) {
